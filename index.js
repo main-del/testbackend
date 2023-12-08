@@ -8,6 +8,7 @@ const webAppUrl = 'https://spiffy-starburst-1e494e.netlify.app'
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
 
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
@@ -78,5 +79,6 @@ app.post('/web-data', async (req, res) => {
 })
 
 const PORT = 8000;
+const HOSTNAME = '127.1.1.141'; 
 
-app.listen(PORT, () => console.log('server started on PORT ' + PORT))
+app.listen(PORT, HOSTNAME, () => console.log(`server started on ${HOSTNAME}:${PORT}`))
