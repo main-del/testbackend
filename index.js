@@ -79,6 +79,6 @@ app.post('/web-data', async (req, res) => {
 })
 
 const PORT = 8000;
-const HOSTNAME = '91.222.136.251:8000'; 
+const HOSTNAME = '91.222.136.251'; 
 
 app.listen(PORT, HOSTNAME, () => console.log(`server started on ${HOSTNAME}:${PORT}`))
