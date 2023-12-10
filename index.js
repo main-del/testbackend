@@ -57,34 +57,34 @@ app.get('/web-data', (req, res) => {
     res.send('wed-data page')
 })
 
-// app.post('/web-data', async (req, res) => {
-//     const {queryId, products = [], totalPrice} = req.body;
-//     try {
-//         await bot.answerWebAppQuery(queryId, {
-//             type: 'article',
-//             id: queryId,
-//             title: 'Успешная покупка',
-//             input_message_content: {
-//                 message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
-//             }
-//         })
-//         return res.status(200).json({});
-//     } catch (e) {
-//         await bot.answerWebAppQuery(queryId, {
-//             type: 'article',
-//             id: queryId,
-//             title: 'Успешная покупка',
-//             input_message_content: {
-//                 message_text: ` Ошибка, не удалось преобрести товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
-//             }
-//         })
-//         return res.status(500).json({});
-//     }
-// })
-
-app.post('/web-data', (req, res) => {
-    res.send('post ans')
+app.post('/web-data', async (req, res) => {
+    const {queryId, products = [], totalPrice} = req.body;
+    try {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Успешная покупка',
+            input_message_content: {
+                message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+            }
+        })
+        return res.status(200).json({});
+    } catch (e) {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Успешная покупка',
+            input_message_content: {
+                message_text: ` Ошибка, не удалось преобрести товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+            }
+        })
+        return res.status(500).json({});
+    }
 })
+
+// app.post('/web-data', (req, res) => {
+//     res.send('post ans')
+// })
 
 
 const PORT = 3000;
