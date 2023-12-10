@@ -53,6 +53,10 @@ app.get('/', (req, res) => {
     res.send('hello world')
   })
 
+app.get('/web-data', (req, res) => {
+    res.send('wed-data page')
+})
+
 app.post('/web-data', async (req, res) => {
     const {queryId, products = [], totalPrice} = req.body;
     try {
