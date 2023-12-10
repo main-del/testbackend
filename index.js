@@ -59,21 +59,37 @@ app.get('/web-data', (req, res) => {
 
 app.post('/web-data', async (req, res) => {
     const {queryId, products = [], totalPrice} = req.body;
-  
-    // Отправьте сообщение боту с подтверждением заказа
-    await bot.answerWebAppQuery(queryId, {
-      type: 'article',
-      id: queryId,
-      title: 'Успешная покупка',
-      input_message_content: {
-        message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
-      }
-    })
-    console.log("post - web-data - status code 200")
-    return res.status(200).json({});
-  });
-  
-  const PORT = 3000;
-  const HOSTNAME = '127.1.1.141';  //  91.222.136.251
-  
-  app.listen(PORT, HOSTNAME, () => console.log(`server started on ${HOSTNAME}:${PORT}`))
+    try {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Успешная покупка',
+            input_message_content: {
+                message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+            }
+        })
+        console.log('web data active try')
+        return res.status(200).json({});
+    } catch (e) {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Успешная покупка',
+            input_message_content: {
+                message_text: ` Ошибка, не удалось преобрести товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+            }
+        })
+        console.log("EROOOOOOOOOOOOOOOOOOORR" + e)
+        return res.status(500).json({});
+    }
+})
+
+// app.post('/web-data', (req, res) => {
+//     res.send('post ans')
+// })
+
+
+const PORT = 3000;
+const HOSTNAME = '127.1.1.141';  //  91.222.136.251
+
+app.listen(PORT, HOSTNAME, () => console.log(`server started on ${HOSTNAME}:${PORT}`))
