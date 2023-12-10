@@ -79,7 +79,7 @@ app.post('/web-data', async (req, res) => {
                 message_text: ` Ошибка, не удалось преобрести товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
             }
         })
-        console.log(e)
+        console.log("EROOOOOOOOOOOOOOOOOOORR" + e)
         return res.status(500).json({});
     }
 })
